@@ -202,7 +202,7 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
 <div class="page-wrap">
 
   <header class="doc-header">
-    <p class="doc-eyebrow">Conjunto Residencial Villas de Aguasay · Etapa I</p>
+    <p class="doc-eyebrow">Conjunto Residencial Villas de Aguasay · Etapas I y II</p>
     <h1 class="doc-title">Carta Poder para Asamblea<br>de Copropietarios</h1>
     <p class="doc-subtitle">Lunes 26 de Octubre de 2026 · 6:00 p.m. · Área Social</p>
   </header>
@@ -380,7 +380,7 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
 
     <div class="carta-doc" id="carta-doc">
       <h2>Carta Poder Especial</h2>
-      <p class="doc-sub">Asamblea General Extraordinaria de Copropietarios<br>Conjunto Residencial Villas de Aguasay, Etapa I · 26/10/2026</p>
+      <p class="doc-sub">Asamblea General Extraordinaria de Copropietarios<br>Conjunto Residencial Villas de Aguasay, Etapas I y II · 26/10/2026</p>
       <div id="carta-cuerpo"></div>
 
       <div class="firma-grid">
@@ -567,7 +567,7 @@ function listaFacultades() {
 function textoPlano() {
   const hoy = new Date().toLocaleDateString('es-VE',{day:'2-digit',month:'long',year:'numeric'});
   let t = `CARTA PODER ESPECIAL\nAsamblea General Extraordinaria · Villas de Aguasay · 26/10/2026\n\n`;
-  t += `Yo, ${gv('pd-nombre')}, venezolano(a), mayor de edad, C.I. N.° ${gv('pd-cedula')}, propietario(a) del ${gv('pd-apto')} – ${gv('pd-micro')} del Conjunto Residencial Villas de Aguasay, Etapa I, Maturín, Estado Monagas;\n\n`;
+  t += `Yo, ${gv('pd-nombre')}, venezolano(a), mayor de edad, C.I. N.° ${gv('pd-cedula')}, propietario(a) del ${gv('pd-apto')} – ${gv('pd-micro')} del Conjunto Residencial Villas de Aguasay, Etapas I y II, Maturín, Estado Monagas;\n\n`;
   t += `Por medio de la presente CARTA PODER ESPECIAL, otorgo poder suficiente a ${gv('ap-nombre')}, C.I. N.° ${gv('ap-cedula')}, para que me represente en la Asamblea General Extraordinaria de Copropietarios convocada para el lunes 26 de octubre de 2026 a las 6:00 p.m.\n\n`;
   t += `Facultades: ${listaFacultades()}.\n`;
   const obs = gv('obs');
@@ -601,7 +601,7 @@ $('poder-form').addEventListener('submit', e => {
   const hoy = new Date().toLocaleDateString('es-VE',{day:'2-digit',month:'long',year:'numeric'});
   const obs  = gv('obs');
   $('carta-cuerpo').innerHTML =
-    `<p>Yo, <span class="blank">${gv('pd-nombre')}</span>, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° <span class="blank">${gv('pd-cedula')}</span>, propietario(a) de la casa N.º <span class="blank">${gv('pd-apto')}</span> perteneciente al <span class="blank">${gv('pd-micro')}</span> del Conjunto Residencial Villas de Aguasay, Etapa I, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;</p>
+    `<p>Yo, <span class="blank">${gv('pd-nombre')}</span>, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° <span class="blank">${gv('pd-cedula')}</span>, propietario(a) de la casa N.º <span class="blank">${gv('pd-apto')}</span> perteneciente al <span class="blank">${gv('pd-micro')}</span> del Conjunto Residencial Villas de Aguasay, Etapas I y II, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;</p>
     <p>Por medio de la presente <strong>CARTA PODER ESPECIAL</strong>, otorgo poder suficiente a <span class="blank">${gv('ap-nombre')}</span>, titular de la Cédula de Identidad N.° <span class="blank">${gv('ap-cedula')}</span>, para que me represente en la <strong>Asamblea General Extraordinaria de Copropietarios</strong> convocada para el día <strong>lunes 26 de octubre de 2026</strong>, a las 6:00 p.m., en el área social del urbanismo.</p>
     <p>Faculto expresamente a mi representante para: ${listaFacultades()}.</p>`
     + (obs ? `<p><strong>Instrucciones particulares:</strong> ${obs}</p>` : '')
@@ -660,7 +660,7 @@ $('btn-pdf').addEventListener('click', () => {
     doc.setFontSize(9);
     doc.setFont('helvetica','normal');
     doc.text('Asamblea General Extraordinaria de Copropietarios', 105, 28, {align:'center'});
-    doc.text('Conjunto Residencial Villas de Aguasay, Etapa I · 26/10/2026', 105, 33, {align:'center'});
+    doc.text('Conjunto Residencial Villas de Aguasay, Etapas I y II · 26/10/2026', 105, 33, {align:'center'});
     doc.setDrawColor(30,58,95);
     doc.setLineWidth(0.5);
     doc.line(ml, 36, mr, 36);
@@ -668,7 +668,7 @@ $('btn-pdf').addEventListener('click', () => {
     // Cuerpo
     doc.setFontSize(10);
     doc.setFont('helvetica','normal');
-    const cuerpo = `Yo, ${gv('pd-nombre')}, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° ${gv('pd-cedula')}, propietario(a) de la casa N.º ${gv('pd-apto')} perteneciente al ${gv('pd-micro')} del Conjunto Residencial Villas de Aguasay, Etapa I, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;\n\nPor medio de la presente CARTA PODER ESPECIAL, otorgo poder suficiente a ${gv('ap-nombre')}, titular de la Cédula de Identidad N.° ${gv('ap-cedula')}, para que me represente en la Asamblea General Extraordinaria de Copropietarios convocada para el día lunes 26 de octubre de 2026, a las 6:00 p.m., en el área social del urbanismo.\n\nFaculto expresamente a mi representante para: ${listaFacultades()}.\n\nEl presente poder se otorga de conformidad con la Ley de Propiedad Horizontal y la convocatoria respectiva, teniendo validez únicamente para la Asamblea indicada.\n\nEn Maturín, a los ${hoy}.`;
+    const cuerpo = `Yo, ${gv('pd-nombre')}, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° ${gv('pd-cedula')}, propietario(a) de la casa N.º ${gv('pd-apto')} perteneciente al ${gv('pd-micro')} del Conjunto Residencial Villas de Aguasay, Etapas I y II, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;\n\nPor medio de la presente CARTA PODER ESPECIAL, otorgo poder suficiente a ${gv('ap-nombre')}, titular de la Cédula de Identidad N.° ${gv('ap-cedula')}, para que me represente en la Asamblea General Extraordinaria de Copropietarios convocada para el día lunes 26 de octubre de 2026, a las 6:00 p.m., en el área social del urbanismo.\n\nFaculto expresamente a mi representante para: ${listaFacultades()}.\n\nEl presente poder se otorga de conformidad con la Ley de Propiedad Horizontal y la convocatoria respectiva, teniendo validez únicamente para la Asamblea indicada.\n\nEn Maturín, a los ${hoy}.`;
 
     const lineas = doc.splitTextToSize(cuerpo, ancho);
     doc.text(lineas, ml, 44);
