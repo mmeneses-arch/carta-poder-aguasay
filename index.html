@@ -236,7 +236,7 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
           </div>
           <div class="form-group">
             <label for="pd-cedula">Cédula de Identidad <span class="req">*</span></label>
-            <input type="text" id="pd-cedula" placeholder="V-12.345.678" required>
+            <input type="text" id="pd-cedula" placeholder="V-12.345.678" required style="text-transform:uppercase">
           </div>
           <div class="form-group">
             <label for="pd-apto">N.º de casa <span class="req">*</span></label>
@@ -272,7 +272,7 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
           </div>
           <div class="form-group">
             <label for="ap-cedula">Cédula de Identidad <span class="req">*</span></label>
-            <input type="text" id="ap-cedula" placeholder="V-00.000.000" required>
+            <input type="text" id="ap-cedula" placeholder="V-00.000.000" required style="text-transform:uppercase">
           </div>
           <div class="form-group">
             <label for="ap-relacion">Relación</label>
@@ -413,7 +413,10 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
 <script>
 /* ─── helpers ─── */
 const $ = id => document.getElementById(id);
-const gv = id => ($( id)?.value ?? '').trim();
+const gv = id => {
+  const v = ($( id)?.value ?? '').trim();
+  return (id === 'pd-cedula' || id === 'ap-cedula') ? v.toUpperCase() : v;
+};
 let firmaDataURL = '';
 let fotoDataURL  = '';
 let camStream    = null;
