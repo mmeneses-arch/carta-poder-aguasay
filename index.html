@@ -1,6 +1,7 @@
 <title>Carta Poder – Asamblea Villas de Aguasay</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap">
 
@@ -395,6 +396,10 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         <span id="copiar-lbl">Copiar texto</span>
       </button>
+      <button class="btn-action" id="btn-pdf">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6M9 15l3 3 3-3"/></svg>
+        Descargar PDF
+      </button>
       <button class="btn-action" id="btn-nueva">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
         Nueva carta
@@ -628,6 +633,72 @@ $('btn-copiar').addEventListener('click', () => {
     $('copiar-lbl').textContent='Seleccionado – Ctrl+C';
     setTimeout(()=>$('copiar-lbl').textContent='Copiar texto',3000);
   });
+});
+
+/* ─── Descargar PDF ─── */
+$('btn-pdf').addEventListener('click', () => {
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'letter' });
+    const hoy = new Date().toLocaleDateString('es-VE',{day:'2-digit',month:'long',year:'numeric'});
+    const ml = 20, mr = 190, ancho = 170;
+
+    // Encabezado
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(13);
+    doc.text('CARTA PODER ESPECIAL', 105, 22, {align:'center'});
+    doc.setFontSize(9);
+    doc.setFont('helvetica','normal');
+    doc.text('Asamblea General Extraordinaria de Copropietarios', 105, 28, {align:'center'});
+    doc.text('Conjunto Residencial Villas de Aguasay, Etapa I · 26/10/2026', 105, 33, {align:'center'});
+    doc.setDrawColor(30,58,95);
+    doc.setLineWidth(0.5);
+    doc.line(ml, 36, mr, 36);
+
+    // Cuerpo
+    doc.setFontSize(10);
+    doc.setFont('helvetica','normal');
+    const cuerpo = `Yo, ${gv('pd-nombre')}, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° ${gv('pd-cedula')}, propietario(a) de la casa N.º ${gv('pd-apto')} perteneciente al ${gv('pd-micro')} del Conjunto Residencial Villas de Aguasay, Etapa I, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;\n\nPor medio de la presente CARTA PODER ESPECIAL, otorgo poder suficiente a ${gv('ap-nombre')}, titular de la Cédula de Identidad N.° ${gv('ap-cedula')}, para que me represente en la Asamblea General Extraordinaria de Copropietarios convocada para el día lunes 26 de octubre de 2026, a las 6:00 p.m., en el área social del urbanismo.\n\nFaculto expresamente a mi representante para: ${listaFacultades()}.\n\nEl presente poder se otorga de conformidad con la Ley de Propiedad Horizontal y la convocatoria respectiva, teniendo validez únicamente para la Asamblea indicada.\n\nEn Maturín, a los ${hoy}.`;
+
+    const lineas = doc.splitTextToSize(cuerpo, ancho);
+    doc.text(lineas, ml, 44);
+
+    // Firmas
+    const yFirma = 200;
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.3);
+
+    // Firma izquierda
+    if (firmaDataURL) {
+      try { doc.addImage(firmaDataURL, 'PNG', ml, yFirma - 18, 60, 15); } catch(e){}
+    }
+    doc.line(ml, yFirma, ml+70, yFirma);
+    doc.setFontSize(8);
+    doc.text('Propietario que otorga el poder', ml, yFirma+4);
+    doc.text(`${gv('pd-nombre')}`, ml, yFirma+8);
+    doc.text(`C.I. ${gv('pd-cedula')}`, ml, yFirma+12);
+
+    // Foto
+    if (fotoDataURL) {
+      try { doc.addImage(fotoDataURL, 'JPEG', ml, yFirma+15, 20, 20); } catch(e){}
+    }
+
+    // Firma derecha
+    doc.line(115, yFirma, 185, yFirma);
+    doc.text('Apoderado (Aceptación)', 115, yFirma+4);
+    doc.text(`${gv('ap-nombre')}`, 115, yFirma+8);
+    doc.text(`C.I. ${gv('ap-cedula')}`, 115, yFirma+12);
+
+    // Pie
+    doc.setFontSize(7);
+    doc.setTextColor(120);
+    doc.text('Documento generado digitalmente · Conjunto Residencial Villas de Aguasay · Maturín 2026', 105, 270, {align:'center'});
+
+    const nombre = gv('pd-nombre').replace(/\s+/g,'-').toLowerCase() || 'carta-poder';
+    doc.save(`carta-poder-${nombre}.pdf`);
+  } catch(err) {
+    alert('No se pudo generar el PDF. Usa "Copiar texto" como alternativa.');
+  }
 });
 
 /* ─── Nueva carta ─── */
