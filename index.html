@@ -413,6 +413,40 @@ let firmaDataURL = '';
 let fotoDataURL  = '';
 let camStream    = null;
 
+/* ─── Persistencia local ─── */
+const STORE_KEY = 'cartapoder_draft';
+const FIELDS = ['pd-nombre','pd-cedula','pd-apto','pd-micro','pd-telefono','ap-nombre','ap-cedula','ap-relacion','obs'];
+const CHECKS = ['fac-voz','fac-voto','fac-firma','fac-acuerdos'];
+
+function guardarBorrador() {
+  try {
+    const data = {};
+    FIELDS.forEach(id => { data[id] = gv(id); });
+    CHECKS.forEach(id => { data[id] = $(id)?.checked ?? false; });
+    localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function cargarBorrador() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    FIELDS.forEach(id => { if (data[id] && $(id)) $(id).value = data[id]; });
+    CHECKS.forEach(id => { if ($(id) && data[id] !== undefined) $(id).checked = data[id]; });
+  } catch(e) {}
+}
+
+// Guardar al escribir
+document.addEventListener('DOMContentLoaded', () => {
+  cargarBorrador();
+  FIELDS.forEach(id => $(id)?.addEventListener('input', guardarBorrador));
+  CHECKS.forEach(id => $(id)?.addEventListener('change', guardarBorrador));
+});
+
+// Limpiar al generar carta nueva
+function limpiarBorrador() { try { localStorage.removeItem(STORE_KEY); } catch(e) {} }
+
 /* ─── Canvas firma ─── */
 (function initCanvas() {
   const canvas = $('firma-canvas');
@@ -569,6 +603,9 @@ $('poder-form').addEventListener('submit', e => {
   // Foto
   if (fotoDataURL) { $('carta-foto').src=fotoDataURL; $('carta-foto').style.display='block'; }
   else { $('carta-foto').style.display='none'; }
+
+  // Limpiar borrador al generar
+  limpiarBorrador();
 
   // Transición
   $('sec-form').hidden = true;
