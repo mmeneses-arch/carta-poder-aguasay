@@ -101,7 +101,19 @@ input, select, textarea { font-family: 'Inter', sans-serif; font-size: 15px; col
 input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent); }
 select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6660' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .7rem center; padding-right: 2.1rem; }
 textarea { resize: vertical; min-height: 75px; }
-input[type="checkbox"] { width: auto; accent-color: var(--accent); margin: 0; }
+input[type="checkbox"] { display: none; }
+.check-row input + span, .check-row > input ~ * { pointer-events: none; }
+.check-box {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; min-width: 22px;
+  border: 2px solid var(--border); border-radius: 4px;
+  background: var(--bg); transition: all .15s; margin-top: 1px;
+  font-size: 14px; color: transparent;
+}
+.check-row input[type="checkbox"]:checked ~ .check-box {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+.check-row { cursor: pointer; user-select: none; }
 
 /* Legal note */
 .legal-note { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: .85rem 1rem; font-size: .87rem; color: var(--muted); line-height: 1.55; margin-bottom: 1.25rem; }
@@ -280,10 +292,10 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
           Facultades otorgadas
         </h2>
         <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:.9rem">
-          <label class="check-row"><input type="checkbox" id="fac-voz" checked> Participar con voz</label>
-          <label class="check-row"><input type="checkbox" id="fac-voto" checked> Votar en todos los puntos del orden del día</label>
-          <label class="check-row"><input type="checkbox" id="fac-firma"> Firmar el acta de la Asamblea en mi nombre</label>
-          <label class="check-row"><input type="checkbox" id="fac-acuerdos"> Suscribir los acuerdos adoptados</label>
+          <label class="check-row"><input type="checkbox" id="fac-voz" checked><span class="check-box">✓</span> Participar con voz</label>
+          <label class="check-row"><input type="checkbox" id="fac-voto" checked><span class="check-box">✓</span> Votar en todos los puntos del orden del día</label>
+          <label class="check-row"><input type="checkbox" id="fac-firma"><span class="check-box">✓</span> Firmar el acta de la Asamblea en mi nombre</label>
+          <label class="check-row"><input type="checkbox" id="fac-acuerdos"><span class="check-box">✓</span> Suscribir los acuerdos adoptados</label>
         </div>
         <div class="form-group">
           <label for="obs">Instrucciones adicionales (opcional)</label>
@@ -344,7 +356,7 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
           Declaración
         </h2>
         <label class="check-row" style="font-size:.88rem">
-          <input type="checkbox" id="declaro" required>
+          <input type="checkbox" id="declaro" required><span class="check-box">✓</span>
           Declaro bajo fe de juramento ser propietario del inmueble indicado y otorgo voluntariamente este poder especial, conforme a la Ley de Propiedad Horizontal y la convocatoria del 26-10-2026.
         </label>
       </div>
