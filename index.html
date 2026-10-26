@@ -238,7 +238,7 @@ footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top:
             <input type="text" id="pd-cedula" placeholder="V-12.345.678" required>
           </div>
           <div class="form-group">
-            <label for="pd-apto">N.º de apartamento <span class="req">*</span></label>
+            <label for="pd-apto">N.º de casa <span class="req">*</span></label>
             <input type="text" id="pd-apto" placeholder="Ej. 3-B" required>
           </div>
           <div class="form-group">
@@ -552,7 +552,7 @@ $('poder-form').addEventListener('submit', e => {
   const hoy = new Date().toLocaleDateString('es-VE',{day:'2-digit',month:'long',year:'numeric'});
   const obs  = gv('obs');
   $('carta-cuerpo').innerHTML =
-    `<p>Yo, <span class="blank">${gv('pd-nombre')}</span>, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° <span class="blank">${gv('pd-cedula')}</span>, propietario(a) del <span class="blank">${gv('pd-apto')}</span> perteneciente al <span class="blank">${gv('pd-micro')}</span> del Conjunto Residencial Villas de Aguasay, Etapa I, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;</p>
+    `<p>Yo, <span class="blank">${gv('pd-nombre')}</span>, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° <span class="blank">${gv('pd-cedula')}</span>, propietario(a) de la casa N.º <span class="blank">${gv('pd-apto')}</span> perteneciente al <span class="blank">${gv('pd-micro')}</span> del Conjunto Residencial Villas de Aguasay, Etapa I, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;</p>
     <p>Por medio de la presente <strong>CARTA PODER ESPECIAL</strong>, otorgo poder suficiente a <span class="blank">${gv('ap-nombre')}</span>, titular de la Cédula de Identidad N.° <span class="blank">${gv('ap-cedula')}</span>, para que me represente en la <strong>Asamblea General Extraordinaria de Copropietarios</strong> convocada para el día <strong>lunes 26 de octubre de 2026</strong>, a las 6:00 p.m., en el área social del urbanismo.</p>
     <p>Faculto expresamente a mi representante para: ${listaFacultades()}.</p>`
     + (obs ? `<p><strong>Instrucciones particulares:</strong> ${obs}</p>` : '')
