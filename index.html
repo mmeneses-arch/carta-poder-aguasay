@@ -1,0 +1,592 @@
+<title>Carta Poder – Asamblea Villas de Aguasay</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+/* ─── Tokens ─────────────────────────────────────────────────────────
+   Layout: single-column form, centered 640px, legal-document feel
+   Color: parchment-warm light / slate-dark; accent formal navy
+   Type: Lora (display/authority) + Inter (UI/labels)
+*/
+:root {
+  --bg:        #f7f5f0;
+  --surface:   #ffffff;
+  --border:    #d4cfc4;
+  --fg:        #1a1814;
+  --muted:     #6b6660;
+  --accent:    #1e3a5f;
+  --accent2:   #2c5282;
+  --success:   #1a6b3c;
+  --success-bg:#e6f4ec;
+  --error:     #b91c1c;
+  --error-bg:  #fef2f2;
+  --radius:    6px;
+  --shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #111318;
+    --surface:   #1c2030;
+    --border:    #2e3347;
+    --fg:        #e8e5df;
+    --muted:     #8b8a8e;
+    --accent:    #5b9bd5;
+    --accent2:   #7ab4e8;
+    --success:   #4ade80;
+    --success-bg:#052e16;
+    --error:     #f87171;
+    --error-bg:  #2d1515;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #111318;
+  --surface:   #1c2030;
+  --border:    #2e3347;
+  --fg:        #e8e5df;
+  --muted:     #8b8a8e;
+  --accent:    #5b9bd5;
+  --accent2:   #7ab4e8;
+  --success:   #4ade80;
+  --success-bg:#052e16;
+  --error:     #f87171;
+  --error-bg:  #2d1515;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding-left:  max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2rem;
+}
+.page-wrap { max-width: 640px; margin: 0 auto; }
+
+/* Header */
+.doc-header { text-align: center; padding-bottom: 1.5rem; border-bottom: 2px solid var(--accent); margin-bottom: 2rem; }
+.doc-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 .5rem; }
+.doc-title { font-family: 'Lora', Georgia, serif; font-size: clamp(1.3rem, 4vw, 1.7rem); font-weight: 600; line-height: 1.25; text-wrap: balance; margin: 0 0 .4rem; }
+.doc-subtitle { font-family: 'Lora', serif; font-style: italic; color: var(--muted); font-size: .93rem; margin: 0; }
+
+/* Steps */
+.step-bar { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.75rem; }
+.step { display: flex; align-items: center; gap: .4rem; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--muted); }
+.step.active { color: var(--accent); }
+.step.done   { color: var(--success); }
+.step-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+.step-div { flex: 1; height: 1px; background: var(--border); }
+
+/* Card */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.6rem; margin-bottom: 1.25rem; }
+.card-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--accent); margin: 0 0 1.1rem; padding-bottom: .55rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .45rem; }
+.card-title svg { flex-shrink: 0; opacity: .7; }
+
+/* Form */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+@media (max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+.form-group { display: flex; flex-direction: column; gap: .3rem; }
+.form-group.full { grid-column: 1/-1; }
+label { font-size: 11.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+label .req { color: var(--error); margin-left: 2px; }
+input, select, textarea { font-family: 'Inter', sans-serif; font-size: 15px; color: var(--fg); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: .55rem .7rem; width: 100%; transition: border-color .15s, box-shadow .15s; outline: none; appearance: none; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent); }
+select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6660' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .7rem center; padding-right: 2.1rem; }
+textarea { resize: vertical; min-height: 75px; }
+input[type="checkbox"] { width: auto; accent-color: var(--accent); margin: 0; }
+
+/* Legal note */
+.legal-note { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: .85rem 1rem; font-size: .87rem; color: var(--muted); line-height: 1.55; margin-bottom: 1.25rem; }
+.legal-note strong { color: var(--fg); }
+
+/* Checkbox rows */
+.check-row { display: flex; align-items: flex-start; gap: .55rem; font-size: .9rem; color: var(--fg); padding: .15rem 0; }
+.check-row input { margin-top: 3px; }
+
+/* Firma canvas */
+.canvas-wrap { position: relative; border: 1.5px dashed var(--border); border-radius: var(--radius); background: var(--bg); overflow: hidden; cursor: crosshair; margin-top: .35rem; }
+.canvas-wrap canvas { display: block; width: 100%; height: 110px; touch-action: none; }
+.canvas-hint { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: .82rem; color: var(--muted); pointer-events: none; gap: .35rem; transition: opacity .2s; }
+.btn-borrar { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); background: none; border: 1px solid var(--border); border-radius: 4px; padding: .2rem .55rem; cursor: pointer; margin-top: .35rem; transition: color .15s, border-color .15s; }
+.btn-borrar:hover { color: var(--error); border-color: var(--error); }
+
+/* Foto */
+.foto-area { margin-top: .35rem; display: flex; flex-direction: column; gap: .55rem; }
+.foto-row { display: flex; gap: .75rem; align-items: flex-start; }
+.foto-placeholder { width: 76px; height: 76px; border: 1.5px dashed var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--muted); font-size: .7rem; text-align: center; gap: .2rem; flex-shrink: 0; }
+#foto-preview { width: 76px; height: 76px; object-fit: cover; border-radius: var(--radius); border: 1.5px solid var(--border); display: none; flex-shrink: 0; }
+.btn-cam { display: inline-flex; align-items: center; gap: .4rem; background: none; border: 1px solid var(--border); border-radius: var(--radius); color: var(--fg); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; padding: .4rem .8rem; cursor: pointer; transition: border-color .15s, color .15s; }
+.btn-cam:hover { border-color: var(--accent); color: var(--accent); }
+.foto-note { font-size: .78rem; color: var(--muted); }
+
+/* Modal cámara */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.78); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+.modal-bg.open { display: flex; }
+.modal-box { background: var(--surface); border-radius: 10px; padding: 1.2rem; width: min(350px, 100%); display: flex; flex-direction: column; gap: .7rem; }
+.modal-box video { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px; background: #000; }
+.modal-btns { display: flex; gap: .5rem; justify-content: center; }
+.btn-snap { background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; padding: .55rem 1.2rem; cursor: pointer; }
+.btn-close-cam { background: none; border: 1px solid var(--border); border-radius: var(--radius); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted); padding: .55rem .9rem; cursor: pointer; }
+.modal-lbl { font-size: .8rem; color: var(--muted); text-align: center; }
+
+/* Submit */
+.btn-submit { display: block; width: 100%; padding: .8rem 1.4rem; background: var(--accent); color: #fff; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; border: none; border-radius: var(--radius); cursor: pointer; transition: background .15s; margin-top: 1.4rem; }
+.btn-submit:hover { background: var(--accent2); }
+.btn-submit:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Mensajes */
+.msg { display: none; padding: .9rem 1.1rem; border-radius: var(--radius); font-size: .9rem; margin-top: .9rem; line-height: 1.55; }
+.msg.ok  { display: block; background: var(--success-bg); border: 1px solid color-mix(in srgb,var(--success) 28%,transparent); color: var(--success); }
+.msg.err { display: block; background: var(--error-bg); border: 1px solid color-mix(in srgb,var(--error) 28%,transparent); color: var(--error); }
+
+/* Carta generada */
+#carta-section { margin-top: 1rem; }
+.carta-doc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 2rem 1.7rem; font-family: 'Lora', Georgia, serif; font-size: .92rem; line-height: 1.78; color: var(--fg); }
+.carta-doc h2 { font-size: 1.05rem; font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: .07em; margin: 0 0 .25rem; }
+.carta-doc .doc-sub { text-align: center; font-style: italic; color: var(--muted); font-size: .87rem; margin: 0 0 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: .9rem; }
+.carta-doc p { margin: .65rem 0; text-align: justify; }
+.carta-doc .blank { font-style: italic; color: var(--accent); }
+.firma-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+@media (max-width: 460px) { .firma-grid { grid-template-columns: 1fr; } }
+.firma-blk { text-align: center; }
+.firma-lnk { height: 2.4rem; border-bottom: 1px solid var(--fg); margin-bottom: .35rem; position: relative; overflow: hidden; }
+.firma-lnk img { width: 100%; height: 100%; object-fit: contain; }
+.firma-lbl { font-family: 'Inter', sans-serif; font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.firma-sub-lbl { font-family: 'Inter', sans-serif; font-size: .78rem; color: var(--muted); margin: .25rem 0 0; }
+
+/* Foto en carta */
+.foto-carta { width: 64px; height: 64px; object-fit: cover; border-radius: 50%; border: 2px solid var(--border); display: block; margin: .5rem auto 0; }
+
+/* Acciones carta */
+.carta-actions { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1rem; padding-top: .9rem; border-top: 1px solid var(--border); }
+.btn-action { display: inline-flex; align-items: center; gap: .35rem; background: none; border: 1px solid var(--border); border-radius: var(--radius); color: var(--muted); font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: .32rem .65rem; cursor: pointer; transition: color .15s, border-color .15s; }
+.btn-action:hover { color: var(--fg); border-color: var(--accent); }
+
+footer { text-align: center; font-size: .77rem; color: var(--muted); margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+</style>
+
+<!-- Modal cámara -->
+<div class="modal-bg" id="modal-cam">
+  <div class="modal-box">
+    <p class="modal-lbl">Centra tu rostro en el encuadre</p>
+    <video id="cam-video" autoplay playsinline muted></video>
+    <div class="modal-btns">
+      <button class="btn-snap" id="btn-snap">📷 Capturar</button>
+      <button class="btn-close-cam" id="btn-close-cam">Cancelar</button>
+    </div>
+  </div>
+</div>
+<canvas id="cam-canvas" style="display:none"></canvas>
+
+<div class="page-wrap">
+
+  <header class="doc-header">
+    <p class="doc-eyebrow">Conjunto Residencial Villas de Aguasay · Etapa I</p>
+    <h1 class="doc-title">Carta Poder para Asamblea<br>de Copropietarios</h1>
+    <p class="doc-subtitle">Lunes 26 de Octubre de 2026 · 6:00 p.m. · Área Social</p>
+  </header>
+
+  <div class="step-bar" id="step-bar">
+    <div class="step active" id="s1"><span class="step-num">1</span><span>Datos</span></div>
+    <div class="step-div"></div>
+    <div class="step" id="s2"><span class="step-num">2</span><span>Firma</span></div>
+    <div class="step-div"></div>
+    <div class="step" id="s3"><span class="step-num">3</span><span>Carta</span></div>
+  </div>
+
+  <!-- ── SECCIÓN FORMULARIO ── -->
+  <div id="sec-form">
+    <div class="legal-note">
+      <strong>Conforme a la convocatoria:</strong> de no poder asistir, envíe a una persona de confianza con carta poder que le otorgue <strong>derecho a voz y voto</strong>. Complete los datos, firme y capture su foto para generar la carta.
+    </div>
+
+    <form id="poder-form" novalidate>
+
+      <!-- Propietario -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Yo, el Propietario (Poderdante)
+        </h2>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="pd-nombre">Nombre completo <span class="req">*</span></label>
+            <input type="text" id="pd-nombre" placeholder="Ej. María González Pérez" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="pd-cedula">Cédula de Identidad <span class="req">*</span></label>
+            <input type="text" id="pd-cedula" placeholder="V-12.345.678" required>
+          </div>
+          <div class="form-group">
+            <label for="pd-apto">N.º de apartamento <span class="req">*</span></label>
+            <input type="text" id="pd-apto" placeholder="Ej. 3-B" required>
+          </div>
+          <div class="form-group">
+            <label for="pd-micro">Micro condominio <span class="req">*</span></label>
+            <select id="pd-micro" required>
+              <option value="">Seleccione…</option>
+              <option>Micro Condominio 1</option><option>Micro Condominio 2</option>
+              <option>Micro Condominio 3</option><option>Micro Condominio 4</option>
+              <option>Micro Condominio 5</option><option>Micro Condominio 6</option>
+              <option>Micro Condominio 7</option><option>Micro Condominio 8</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pd-telefono">Teléfono</label>
+            <input type="tel" id="pd-telefono" placeholder="+58 412 000 0000">
+          </div>
+        </div>
+      </div>
+
+      <!-- Apoderado -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Mi representante (Apoderado)
+        </h2>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="ap-nombre">Nombre completo <span class="req">*</span></label>
+            <input type="text" id="ap-nombre" placeholder="Nombre de quien asistirá" required>
+          </div>
+          <div class="form-group">
+            <label for="ap-cedula">Cédula de Identidad <span class="req">*</span></label>
+            <input type="text" id="ap-cedula" placeholder="V-00.000.000" required>
+          </div>
+          <div class="form-group">
+            <label for="ap-relacion">Relación</label>
+            <select id="ap-relacion">
+              <option value="">Seleccione…</option>
+              <option>Familiar</option><option>Cónyuge o pareja</option>
+              <option>Vecino del condominio</option><option>Amigo de confianza</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Facultades -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Facultades otorgadas
+        </h2>
+        <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:.9rem">
+          <label class="check-row"><input type="checkbox" id="fac-voz" checked> Participar con voz</label>
+          <label class="check-row"><input type="checkbox" id="fac-voto" checked> Votar en todos los puntos del orden del día</label>
+          <label class="check-row"><input type="checkbox" id="fac-firma"> Firmar el acta de la Asamblea en mi nombre</label>
+          <label class="check-row"><input type="checkbox" id="fac-acuerdos"> Suscribir los acuerdos adoptados</label>
+        </div>
+        <div class="form-group">
+          <label for="obs">Instrucciones adicionales (opcional)</label>
+          <textarea id="obs" placeholder="Ej. Votar en contra de la reelección…"></textarea>
+        </div>
+      </div>
+
+      <!-- Firma manuscrita -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+          Firma del Propietario <span style="font-weight:400;font-size:.85rem;color:var(--muted)">(dibuje en el recuadro)</span>
+        </h2>
+        <div class="canvas-wrap">
+          <canvas id="firma-canvas"></canvas>
+          <div class="canvas-hint" id="firma-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            Firme aquí con el dedo o el ratón
+          </div>
+        </div>
+        <button type="button" class="btn-borrar" id="btn-borrar-firma">Borrar firma</button>
+      </div>
+
+      <!-- Foto de identidad -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          Foto de identidad
+          <span style="font-weight:400;font-size:.85rem;color:var(--muted)">(opcional pero recomendada)</span>
+        </h2>
+        <div class="foto-area">
+          <div class="foto-row">
+            <div class="foto-placeholder" id="foto-placeholder">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              Sin foto
+            </div>
+            <img id="foto-preview" src="" alt="Foto de identidad">
+            <div style="display:flex;flex-direction:column;gap:.45rem;justify-content:center">
+              <button type="button" class="btn-cam" id="btn-abrir-cam">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Abrir cámara
+              </button>
+              <label class="btn-cam" style="cursor:pointer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Subir imagen
+                <input type="file" id="foto-file" accept="image/*" style="display:none">
+              </label>
+            </div>
+          </div>
+          <p class="foto-note">Una foto reciente de su rostro ayuda a verificar la identidad durante la asamblea.</p>
+        </div>
+      </div>
+
+      <!-- Declaración -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Declaración
+        </h2>
+        <label class="check-row" style="font-size:.88rem">
+          <input type="checkbox" id="declaro" required>
+          Declaro bajo fe de juramento ser propietario del inmueble indicado y otorgo voluntariamente este poder especial, conforme a la Ley de Propiedad Horizontal y la convocatoria del 26-10-2026.
+        </label>
+      </div>
+
+      <button type="submit" class="btn-submit">Generar carta poder →</button>
+      <div class="msg" id="form-err"></div>
+    </form>
+  </div>
+
+  <!-- ── SECCIÓN CARTA ── -->
+  <div id="sec-carta" hidden>
+    <div class="msg ok">✓ Carta poder generada. Compártela por WhatsApp o cópiala.</div>
+
+    <div class="carta-doc" id="carta-doc">
+      <h2>Carta Poder Especial</h2>
+      <p class="doc-sub">Asamblea General Extraordinaria de Copropietarios<br>Conjunto Residencial Villas de Aguasay, Etapa I · 26/10/2026</p>
+      <div id="carta-cuerpo"></div>
+
+      <div class="firma-grid">
+        <div class="firma-blk">
+          <div class="firma-lnk"><img id="carta-firma" src="" alt="firma"></div>
+          <p class="firma-lbl">Firma del Poderdante</p>
+          <p class="firma-sub-lbl" id="carta-lbl-pd"></p>
+          <img class="foto-carta" id="carta-foto" src="" alt="foto" style="display:none">
+        </div>
+        <div class="firma-blk">
+          <div class="firma-lnk" style="background:var(--bg)"></div>
+          <p class="firma-lbl">Apoderado (Aceptación)</p>
+          <p class="firma-sub-lbl" id="carta-lbl-ap"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="carta-actions">
+      <button class="btn-action" id="btn-copiar">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span id="copiar-lbl">Copiar texto</span>
+      </button>
+      <button class="btn-action" id="btn-nueva">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Nueva carta
+      </button>
+    </div>
+  </div>
+
+  <footer>Conjunto Residencial Villas de Aguasay · Maturín, Estado Monagas · 2026</footer>
+</div>
+
+<script>
+/* ─── helpers ─── */
+const $ = id => document.getElementById(id);
+const gv = id => ($( id)?.value ?? '').trim();
+let firmaDataURL = '';
+let fotoDataURL  = '';
+let camStream    = null;
+
+/* ─── Canvas firma ─── */
+(function initCanvas() {
+  const canvas = $('firma-canvas');
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let hasMark = false;
+
+  function resize() {
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight || 110;
+    const dpr = window.devicePixelRatio || 1;
+    const saved = canvas.toDataURL();
+    canvas.width  = w * dpr;
+    canvas.height = h * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() || '#1a1814';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    if (hasMark) { const img = new Image(); img.onload = () => ctx.drawImage(img,0,0,w,h); img.src = saved; }
+  }
+
+  new ResizeObserver(resize).observe(canvas);
+  setTimeout(resize, 50);
+
+  function pos(e) {
+    const r = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return [t.clientX - r.left, t.clientY - r.top];
+  }
+
+  canvas.addEventListener('mousedown',  e => { drawing=true; ctx.beginPath(); ctx.moveTo(...pos(e)); e.preventDefault(); });
+  canvas.addEventListener('mousemove',  e => { if(!drawing) return; ctx.lineTo(...pos(e)); ctx.stroke(); hasMark=true; $('firma-hint').style.opacity='0'; firmaDataURL=canvas.toDataURL(); });
+  canvas.addEventListener('mouseup',    () => { drawing=false; });
+  canvas.addEventListener('mouseleave', () => { drawing=false; });
+  canvas.addEventListener('touchstart', e => { drawing=true; ctx.beginPath(); ctx.moveTo(...pos(e)); e.preventDefault(); }, {passive:false});
+  canvas.addEventListener('touchmove',  e => { if(!drawing) return; ctx.lineTo(...pos(e)); ctx.stroke(); hasMark=true; $('firma-hint').style.opacity='0'; firmaDataURL=canvas.toDataURL(); e.preventDefault(); }, {passive:false});
+  canvas.addEventListener('touchend',   () => { drawing=false; });
+
+  $('btn-borrar-firma').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasMark = false;
+    firmaDataURL = '';
+    $('firma-hint').style.opacity = '1';
+  });
+})();
+
+/* ─── Cámara ─── */
+$('btn-abrir-cam').addEventListener('click', async () => {
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false});
+    $('cam-video').srcObject = camStream;
+    $('modal-cam').classList.add('open');
+  } catch {
+    alert('No se pudo acceder a la cámara. Usa "Subir imagen" en su lugar.');
+  }
+});
+
+$('btn-snap').addEventListener('click', () => {
+  const video = $('cam-video');
+  const c = $('cam-canvas');
+  c.width  = video.videoWidth;
+  c.height = video.videoHeight;
+  c.getContext('2d').drawImage(video, 0, 0);
+  fotoDataURL = c.toDataURL('image/jpeg', .85);
+  mostrarFoto(fotoDataURL);
+  cerrarCam();
+});
+
+$('btn-close-cam').addEventListener('click', cerrarCam);
+
+function cerrarCam() {
+  $('modal-cam').classList.remove('open');
+  if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
+}
+
+$('foto-file').addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = ev => { fotoDataURL = ev.target.result; mostrarFoto(fotoDataURL); };
+  reader.readAsDataURL(f);
+});
+
+function mostrarFoto(src) {
+  const prev = $('foto-preview');
+  prev.src = src;
+  prev.style.display = 'block';
+  $('foto-placeholder').style.display = 'none';
+}
+
+/* ─── Facultades ─── */
+function listaFacultades() {
+  const lst = [];
+  if ($('fac-voz').checked)     lst.push('participar con voz');
+  if ($('fac-voto').checked)    lst.push('votar en todos los puntos del orden del día');
+  if ($('fac-firma').checked)   lst.push('firmar el acta de la Asamblea en mi nombre');
+  if ($('fac-acuerdos').checked)lst.push('suscribir los acuerdos que sean adoptados');
+  return lst.length ? lst.join(', ') : 'asistir a la Asamblea en mi representación';
+}
+
+/* ─── Texto plano ─── */
+function textoPlano() {
+  const hoy = new Date().toLocaleDateString('es-VE',{day:'2-digit',month:'long',year:'numeric'});
+  let t = `CARTA PODER ESPECIAL\nAsamblea General Extraordinaria · Villas de Aguasay · 26/10/2026\n\n`;
+  t += `Yo, ${gv('pd-nombre')}, venezolano(a), mayor de edad, C.I. N.° ${gv('pd-cedula')}, propietario(a) del ${gv('pd-apto')} – ${gv('pd-micro')} del Conjunto Residencial Villas de Aguasay, Etapa I, Maturín, Estado Monagas;\n\n`;
+  t += `Por medio de la presente CARTA PODER ESPECIAL, otorgo poder suficiente a ${gv('ap-nombre')}, C.I. N.° ${gv('ap-cedula')}, para que me represente en la Asamblea General Extraordinaria de Copropietarios convocada para el lunes 26 de octubre de 2026 a las 6:00 p.m.\n\n`;
+  t += `Facultades: ${listaFacultades()}.\n`;
+  const obs = gv('obs');
+  if (obs) t += `\nInstrucciones particulares: ${obs}\n`;
+  t += `\nPoder conforme a la Ley de Propiedad Horizontal. Válido únicamente para la Asamblea indicada.\n\n`;
+  t += `En Maturín, a los ${hoy}.\n\n`;
+  t += `_________________________         _________________________\n`;
+  t += `${gv('pd-nombre')}           ${gv('ap-nombre')}\n`;
+  t += `C.I. ${gv('pd-cedula')}               C.I. ${gv('ap-cedula')}\n`;
+  t += `PODERDANTE                            APODERADO`;
+  return t;
+}
+
+/* ─── Submit ─── */
+$('poder-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const errEl = $('form-err');
+  errEl.className = 'msg';
+
+  const reqs = {
+    'pd-nombre':'Nombre del propietario','pd-cedula':'Cédula del propietario',
+    'pd-apto':'Número de apartamento','pd-micro':'Micro condominio',
+    'ap-nombre':'Nombre del apoderado','ap-cedula':'Cédula del apoderado'
+  };
+  for (const [id, lbl] of Object.entries(reqs)) {
+    if (!gv(id)) { errEl.textContent=`Completa el campo: ${lbl}`; errEl.className='msg err'; $(id).focus(); return; }
+  }
+  if (!$('declaro').checked) { errEl.textContent='Marca la declaración de consentimiento.'; errEl.className='msg err'; return; }
+
+  // Llenar carta
+  const hoy = new Date().toLocaleDateString('es-VE',{day:'2-digit',month:'long',year:'numeric'});
+  const obs  = gv('obs');
+  $('carta-cuerpo').innerHTML =
+    `<p>Yo, <span class="blank">${gv('pd-nombre')}</span>, venezolano(a), mayor de edad, titular de la Cédula de Identidad N.° <span class="blank">${gv('pd-cedula')}</span>, propietario(a) del <span class="blank">${gv('pd-apto')}</span> perteneciente al <span class="blank">${gv('pd-micro')}</span> del Conjunto Residencial Villas de Aguasay, Etapa I, ubicado en la Avenida Alirio Ugarte Pelayo, Sector Tipuro, Maturín, Estado Monagas;</p>
+    <p>Por medio de la presente <strong>CARTA PODER ESPECIAL</strong>, otorgo poder suficiente a <span class="blank">${gv('ap-nombre')}</span>, titular de la Cédula de Identidad N.° <span class="blank">${gv('ap-cedula')}</span>, para que me represente en la <strong>Asamblea General Extraordinaria de Copropietarios</strong> convocada para el día <strong>lunes 26 de octubre de 2026</strong>, a las 6:00 p.m., en el área social del urbanismo.</p>
+    <p>Faculto expresamente a mi representante para: ${listaFacultades()}.</p>`
+    + (obs ? `<p><strong>Instrucciones particulares:</strong> ${obs}</p>` : '')
+    + `<p>El presente poder se otorga de conformidad con la <strong>Ley de Propiedad Horizontal</strong> y la convocatoria respectiva, teniendo validez únicamente para la Asamblea indicada.</p>
+    <p>En Maturín, a los ${hoy}.</p>`;
+
+  $('carta-lbl-pd').textContent = `${gv('pd-nombre')} · C.I. ${gv('pd-cedula')}`;
+  $('carta-lbl-ap').textContent = `${gv('ap-nombre')} · C.I. ${gv('ap-cedula')}`;
+
+  // Firma
+  if (firmaDataURL) { $('carta-firma').src = firmaDataURL; }
+  else { $('carta-firma').src=''; }
+
+  // Foto
+  if (fotoDataURL) { $('carta-foto').src=fotoDataURL; $('carta-foto').style.display='block'; }
+  else { $('carta-foto').style.display='none'; }
+
+  // Transición
+  $('sec-form').hidden = true;
+  $('sec-carta').hidden = false;
+  $('s1').className='step done'; $('s1').querySelector('.step-num').textContent='✓';
+  $('s2').className='step done'; $('s2').querySelector('.step-num').textContent='✓';
+  $('s3').className='step active';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ─── Copiar ─── */
+$('btn-copiar').addEventListener('click', () => {
+  navigator.clipboard.writeText(textoPlano()).then(() => {
+    $('copiar-lbl').textContent='¡Copiado!';
+    setTimeout(()=>$('copiar-lbl').textContent='Copiar texto',2000);
+  }).catch(() => {
+    const sel=window.getSelection(), r=document.createRange();
+    r.selectNodeContents($('carta-cuerpo'));
+    sel.removeAllRanges(); sel.addRange(r);
+    $('copiar-lbl').textContent='Seleccionado – Ctrl+C';
+    setTimeout(()=>$('copiar-lbl').textContent='Copiar texto',3000);
+  });
+});
+
+/* ─── Nueva carta ─── */
+$('btn-nueva').addEventListener('click', () => {
+  $('sec-carta').hidden=true; $('sec-form').hidden=false;
+  $('s1').className='step active'; $('s1').querySelector('.step-num').textContent='1';
+  $('s2').className='step';        $('s2').querySelector('.step-num').textContent='2';
+  $('s3').className='step';        $('s3').querySelector('.step-num').textContent='3';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
